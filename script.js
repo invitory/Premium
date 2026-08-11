@@ -830,3 +830,61 @@ async function loadGalleryPhotos() {
 
 
 loadGalleryPhotos();
+
+/* =========================================================
+   WEDDING MUSIC
+   ========================================================= */
+
+const musicBtn =
+  document.getElementById("musicBtn");
+
+const weddingAudio =
+  document.getElementById("weddingAudio");
+
+
+let musicPlaying = false;
+
+
+if (musicBtn && weddingAudio) {
+
+  musicBtn.addEventListener(
+    "click",
+    async function () {
+
+      try {
+
+        if (musicPlaying) {
+
+          weddingAudio.pause();
+
+          musicPlaying = false;
+
+          musicBtn.classList.remove("playing");
+
+          musicBtn.textContent = "♫";
+
+        } else {
+
+          await weddingAudio.play();
+
+          musicPlaying = true;
+
+          musicBtn.classList.add("playing");
+
+          musicBtn.textContent = "❚❚";
+
+        }
+
+      } catch (error) {
+
+        console.error(
+          "Musik tidak dapat diputar:",
+          error
+        );
+
+      }
+
+    }
+  );
+
+}

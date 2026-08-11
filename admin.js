@@ -20,218 +20,249 @@ renderRsvp();toast("Data demo dihapus")}})
 function toast(t){const x=document.getElementById("adminToast");x.textContent=t;x.classList.add("show");setTimeout(()=>x.classList.remove("show"),2000)}
 renderRsvp();
 
+
 /* =========================================================
-   GALLERY LOCAL STORAGE
+   CLOUDINARY GALLERY UPLOAD
    ========================================================= */
 
-const GALLERY_DB_NAME = "weddingGalleryDB";
-const GALLERY_STORE_NAME = "photos";
+const CLOUDINARY_CLOUD_NAME = "ecojr2tw";
+const CLOUDINARY_UPLOAD_PRESET = "Premium gallery";
+
+const CLOUDINARY_UPLOAD_URL =
+  `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`;
 
 
-function openGalleryDB() {
+/* =========================================================
+   UPLOAD FOTO
+   ========================================================= */
 
-  return new Promise((resolve, reject) => {
+async function uploadGalleryPhoto(number, file) {
 
-    const request =
-      indexedDB.open(GALLERY_DB_NAME, 1);
-
-    request.onupgradeneeded = function () {
-
-      const db = request.result;
-
-      if (!db.objectStoreNames.contains(GALLERY_STORE_NAME)) {
-
-        db.createObjectStore(
-          GALLERY_STORE_NAME
-        );
-
-      }
-
-    };
-
-    request.onsuccess = function () {
-      resolve(request.result);
-    };
-
-    request.onerror = function () {
-      reject(request.error);
-    };
-
-  });
-
-}
+  if (!file) return;
 
 
-async function saveGalleryPhoto(number, file) {
+  if (!file.type.startsWith("image/")) {
 
-  const db = await openGalleryDB();
+    alert("Silakan pilih file gambar.");
 
-  return new Promise((resolve, reject) => {
+    return;
 
-    const transaction =
-      db.transaction(
-        GALLERY_STORE_NAME,
-        "readwrite"
+  }
+
+
+  const preview =
+    document.getElementById(
+      `preview${number}`
+    );
+
+
+  if (preview) {
+
+    preview.innerHTML = `
+      <span>Mengupload foto...</span>
+    `;
+
+  }
+
+
+  try {
+
+    const formData =
+      new FormData();
+
+    formData.append(
+      "file",
+      file
+    );
+
+    formData.append(
+      "upload_preset",
+      CLOUDINARY_UPLOAD_PRESET
+    );
+
+
+    const response =
+      await fetch(
+        CLOUDINARY_UPLOAD_URL,
+        {
+          method: "POST",
+          body: formData
+        }
       );
 
-    const store =
-      transaction.objectStore(
-        GALLERY_STORE_NAME
+
+    const result =
+      await response.json();
+
+
+    if (!response.ok) {
+
+      console.error(
+        "Cloudinary error:",
+        result
       );
 
-    store.put(file, String(number));
-
-    transaction.oncomplete = () => {
-      resolve();
-    };
-
-    transaction.onerror = () => {
-      reject(transaction.error);
-    };
-
-  });
-
-}
-
-
-async function getGalleryPhoto(number) {
-
-  const db = await openGalleryDB();
-
-  return new Promise((resolve, reject) => {
-
-    const transaction =
-      db.transaction(
-        GALLERY_STORE_NAME,
-        "readonly"
+      throw new Error(
+        result.error?.message ||
+        "Upload gagal."
       );
 
-    const store =
-      transaction.objectStore(
-        GALLERY_STORE_NAME
+    }
+
+
+    /*
+      URL gambar dari Cloudinary
+    */
+
+    const imageUrl =
+      result.secure_url;
+
+
+    /*
+      Simpan URL foto
+      ke konfigurasi gallery
+    */
+
+    const gallery =
+      JSON.parse(
+        localStorage.getItem(
+          "wedding_gallery"
+        ) || "{}"
       );
 
-    const request =
-      store.get(String(number));
 
-    request.onsuccess = () => {
-      resolve(request.result || null);
-    };
-
-    request.onerror = () => {
-      reject(request.error);
-    };
-
-  });
-
-}
+    gallery[number] =
+      imageUrl;
 
 
-async function deleteGalleryPhoto(number) {
+    localStorage.setItem(
+      "wedding_gallery",
+      JSON.stringify(gallery)
+    );
 
-  const db = await openGalleryDB();
 
-  return new Promise((resolve, reject) => {
+    /*
+      Tampilkan preview
+    */
 
-    const transaction =
-      db.transaction(
-        GALLERY_STORE_NAME,
-        "readwrite"
-      );
+    if (preview) {
 
-    const store =
-      transaction.objectStore(
-        GALLERY_STORE_NAME
-      );
+      preview.innerHTML = `
+        <img
+          src="${imageUrl}"
+          alt="Foto ${number}"
+        >
+      `;
 
-    store.delete(String(number));
+    }
 
-    transaction.oncomplete = () => {
-      resolve();
-    };
 
-    transaction.onerror = () => {
-      reject(transaction.error);
-    };
+    toast(
+      `Foto ${number} berhasil diupload ✓`
+    );
 
-  });
+
+  } catch (error) {
+
+    console.error(error);
+
+
+    if (preview) {
+
+      preview.innerHTML =
+        `<span>Upload gagal</span>`;
+
+    }
+
+
+    alert(
+      `Upload gagal: ${error.message}`
+    );
+
+  }
 
 }
 
 
 /* =========================================================
-   SETUP UPLOAD
+   SETUP INPUT FOTO
    ========================================================= */
 
 function setupGalleryUpload() {
 
+  /*
+    Tampilkan foto yang sudah tersimpan
+  */
+
+  let gallery = {};
+
+  try {
+
+    gallery =
+      JSON.parse(
+        localStorage.getItem(
+          "wedding_gallery"
+        ) || "{}"
+      );
+
+  } catch {
+
+    gallery = {};
+
+  }
+
+
   for (let i = 1; i <= 4; i++) {
 
     const input =
-      document.getElementById(`gallery${i}`);
+      document.getElementById(
+        `gallery${i}`
+      );
 
     const preview =
-      document.getElementById(`preview${i}`);
+      document.getElementById(
+        `preview${i}`
+      );
 
-    if (!input || !preview) continue;
+
+    if (!input || !preview) {
+      continue;
+    }
 
 
-    /* PILIH FOTO */
+    /*
+      Load foto sebelumnya
+    */
+
+    if (gallery[i]) {
+
+      preview.innerHTML = `
+        <img
+          src="${gallery[i]}"
+          alt="Foto ${i}"
+        >
+      `;
+
+    }
+
+
+    /*
+      Ketika admin memilih foto
+    */
 
     input.addEventListener(
       "change",
-      async function () {
+      function () {
 
-        const file = this.files[0];
+        const file =
+          this.files[0];
 
         if (!file) return;
 
-
-        if (!file.type.startsWith("image/")) {
-
-          alert("Silakan pilih file gambar.");
-
-          this.value = "";
-
-          return;
-
-        }
-
-
-        try {
-
-          await saveGalleryPhoto(
-            i,
-            file
-          );
-
-
-          const imageUrl =
-            URL.createObjectURL(file);
-
-
-          preview.innerHTML = `
-            <img
-              src="${imageUrl}"
-              alt="Foto ${i}"
-            />
-          `;
-
-
-          toast(
-            `Foto ${i} berhasil dipilih ✓`
-          );
-
-
-        } catch (error) {
-
-          console.error(error);
-
-          alert(
-            "Foto gagal disimpan."
-          );
-
-        }
+        uploadGalleryPhoto(
+          i,
+          file
+        );
 
       }
     );
@@ -239,7 +270,9 @@ function setupGalleryUpload() {
   }
 
 
-  /* HAPUS FOTO */
+  /*
+    Tombol hapus
+  */
 
   document
     .querySelectorAll(".remove-photo")
@@ -247,14 +280,26 @@ function setupGalleryUpload() {
 
       button.addEventListener(
         "click",
-        async function () {
+        function () {
 
           const number =
             this.dataset.photo;
 
 
-          await deleteGalleryPhoto(
-            number
+          const gallery =
+            JSON.parse(
+              localStorage.getItem(
+                "wedding_gallery"
+              ) || "{}"
+            );
+
+
+          delete gallery[number];
+
+
+          localStorage.setItem(
+            "wedding_gallery",
+            JSON.stringify(gallery)
           );
 
 
@@ -263,6 +308,7 @@ function setupGalleryUpload() {
               `gallery${number}`
             );
 
+
           const preview =
             document.getElementById(
               `preview${number}`
@@ -270,7 +316,9 @@ function setupGalleryUpload() {
 
 
           if (input) {
+
             input.value = "";
+
           }
 
 
