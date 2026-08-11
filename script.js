@@ -888,3 +888,45 @@ if (musicBtn && weddingAudio) {
   );
 
 }
+
+/* =========================================================
+   LOAD CLOUDINARY GALLERY
+   ========================================================= */
+
+function loadCloudinaryGallery() {
+
+  let gallery = {};
+
+  try {
+    gallery = JSON.parse(
+      localStorage.getItem("wedding_gallery") || "{}"
+    );
+  } catch (error) {
+    console.error("Gallery storage error:", error);
+    return;
+  }
+
+  for (let i = 1; i <= 4; i++) {
+
+    const image = document.querySelector(
+      `.gallery-photo[data-gallery="${i - 1}"] img`
+    );
+
+    if (!image) continue;
+
+    if (gallery[i]) {
+
+      image.src = gallery[i];
+
+      image.onerror = function () {
+        console.error(
+          `Foto gallery ${i} gagal dimuat:`,
+          gallery[i]
+        );
+      };
+
+    }
+  }
+}
+
+loadCloudinaryGallery();
