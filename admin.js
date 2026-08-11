@@ -343,3 +343,4 @@ function setupGalleryUpload() {
 
 
 setupGalleryUpload();
+console.log("CLOUDINARY GALLERY AKTIF");
