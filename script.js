@@ -1,3 +1,30 @@
+const APPWRITE_ENDPOINT = "https://cloud.appwrite.io/v1";
+const APPWRITE_PROJECT_ID = "sgp-6a7b31350025fd82af3a";
+const APPWRITE_DATABASE_ID = "6a7b3452001a36124d38";
+const APPWRITE_TABLE_ID = "wedding_config";
+const APPWRITE_DOCUMENT_ID = "main";
+const APPWRITE_GALLERY_TABLE_ID = "wedding_gallery";
+
+async function getWeddingConfig() {
+  const response = await fetch(
+    `${APPWRITE_ENDPOINT}/databases/${APPWRITE_DATABASE_ID}/tables/${APPWRITE_TABLE_ID}/rows/${APPWRITE_DOCUMENT_ID}`,
+    {
+      method: "GET",
+      headers: {
+        "X-Appwrite-Project": APPWRITE_PROJECT_ID
+      }
+    }
+  );
+
+  const result = await response.json();
+
+  if (!response.ok) {
+    console.error("Appwrite error:", result);
+    throw new Error(result.message || "Gagal mengambil konfigurasi.");
+  }
+
+  return result.data;
+}
 
 // ===== ADMIN CONFIG (frontend test; later replaced by Supabase) =====
 const DEFAULT_CONFIG={bride:"Alya",groom:"Arkan",weddingDate:"2026-09-11",venue:"Pendopo Mataram",city:"Yogyakarta",akadTime:"09:00 WIB",receptionTime:"19:00 WIB",mapsUrl:"",bankName:"BANK BCA",bankAccount:"1234567890",bankHolder:"Alya & Arkan"};
@@ -580,10 +607,7 @@ function updateClosingCouple() {
 
   try {
 
-    const saved =
-      JSON.parse(
-        localStorage.getItem("demo_config") || "{}"
-      );
+    const saved = window.weddingConfig || {};
 
     const bride =
       saved.bride || "Alya";
@@ -611,15 +635,7 @@ updateClosingCouple();
 
 function updateWeddingMap() {
 
-  let config = {};
-
-  try {
-    config = JSON.parse(
-      localStorage.getItem("demo_config") || "{}"
-    );
-  } catch (error) {
-    console.error("Gagal membaca data Admin:", error);
-  }
+ const config = window.weddingConfig || {};
 
   const venue =
     config.venue || "Pendopo Mataram";
@@ -892,40 +908,61 @@ if (musicBtn && weddingAudio) {
    LOAD CLOUDINARY GALLERY
    ========================================================= */
 
-function loadCloudinaryGallery() {
-
-  let gallery = {};
+async function loadCloudinaryGallery() {
 
   try {
-    gallery = JSON.parse(
-      localStorage.getItem("wedding_gallery") || "{}"
-    );
-  } catch (error) {
-    console.error("Gallery storage error:", error);
-    return;
-  }
 
-  for (let i = 1; i <= 4; i++) {
-
-    const image = document.querySelector(
-      `.gallery-photo[data-gallery="${i - 1}"] img`
+    const response = await fetch(
+      `${APPWRITE_ENDPOINT}/databases/${APPWRITE_DATABASE_ID}/tables/wedding_gallery/rows/main`,
+      {
+        method: "GET",
+        headers: {
+          "X-Appwrite-Project": APPWRITE_PROJECT_ID
+        }
+      }
     );
 
-    if (!image) continue;
+    const result = await response.json();
 
-    if (gallery[i]) {
+    if (!response.ok) {
+      console.error("Appwrite Gallery GET error:", result);
+      return;
+    }
 
-      image.src = gallery[i];
+    const gallery = result;
+
+    console.log("Gallery dari Appwrite:", gallery);
+
+    for (let i = 1; i <= 4; i++) {
+
+      const image = document.querySelector(
+        `.gallery-photo[data-gallery="${i - 1}"] img`
+      );
+
+      const url = gallery[`photo${i}`];
+
+      if (!image || !url) {
+        continue;
+      }
+
+      image.src = url;
 
       image.onerror = function () {
         console.error(
           `Foto gallery ${i} gagal dimuat:`,
-          gallery[i]
+          url
         );
       };
 
     }
-  }
-}
 
-loadCloudinaryGallery();
+  } catch (error) {
+
+    console.error(
+      "Gagal mengambil gallery dari Appwrite:",
+      error
+    );
+
+  }
+
+}
