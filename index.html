@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#17100c" />
+  <title id="pageTitle">Alya & Arkan — Wedding Invitation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="petals" aria-hidden="true"></div>
+
+  <header class="topbar glass">
+    <a class="brand" href="#home" aria-label="Home">
+      <span class="brand-mark">❧</span>
+      <span id="navCouple">Alya & Arkan</span>
+    </a>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#story">Kisah Kami</a>
+      <a href="#event">Acara</a>
+      <a href="#gallery">Galeri</a>
+      <a href="#rsvp">RSVP</a>
+      <a href="#gift">Amplop Digital</a>
+    </nav>
+    <button id="musicBtn" class="round-btn" type="button" aria-label="Putar musik">♫</button>
+  </header>
+
+  <main>
+    <section id="home" class="hero section-shell">
+      <div class="hero-overlay"></div>
+      <div class="glass hero-card reveal">
+        <p class="eyebrow">THE WEDDING OF</p>
+        <h1><span id="brideName">Alya</span> <span>&amp;</span> <span id="groomName">Arkan</span></h1>
+        <div class="ornament">✦</div>
+        <p class="date" id="heroDate">11 · 09 · 2026</p>
+        <p class="hero-copy">Dengan memohon rahmat dan ridho Allah SWT,<br>kami mengundang Anda untuk hadir di hari bahagia kami.</p>
+        <a href="#welcome" class="scroll-btn">↓<small>Scroll Down</small></a>
+      </div>
+    </section>
+
+    <section id="welcome" class="section-shell section-pad">
+      <div class="glass welcome-card reveal">
+        <div class="welcome-copy">
+          <span class="section-no">01</span>
+          <span class="section-label">WELCOME</span>
+          <div class="javanese-flourish">꧁ ꧂</div>
+          <h2>Kepada Yth.<br><strong id="guestNameDisplay">Bapak/Ibu/Saudara/i</strong></h2>
+          <div class="line-heart">— ♥ —</div>
+          <p id="guestGreeting">Tanpa mengurangi rasa hormat, kami mengundang Anda untuk hadir dan menjadi bagian dari hari bahagia kami.</p>
+          <button id="openInvitation" class="gold-btn">Buka Undangan <span>→</span></button>
+        </div>
+        <div class="envelope-wrap">
+          <div class="envelope">
+            <div class="wax">✦</div>
+            <div class="envelope-flap"></div>
+            <div class="wayang-stamp">꧁<br>ꦄꦏ꧀ꦭꦶꦪꦫꦮꦤ꧀<br>꧂</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="countdown" class="section-shell section-pad">
+      <div class="section-heading reveal">
+        <span class="section-no">02</span>
+        <span class="section-label">COUNTDOWN</span>
+        <h2>Menuju Hari Bahagia</h2>
+        <div class="line-heart">— ♥ —</div>
+      </div>
+      <div class="countdown glass reveal">
+        <div><strong id="days">126</strong><span>Hari</span></div>
+        <div><strong id="hours">08</strong><span>Jam</span></div>
+        <div><strong id="minutes">34</strong><span>Menit</span></div>
+        <div><strong id="seconds">56</strong><span>Detik</span></div>
+      </div>
+    </section>
+
+    <section id="story" class="content-section section-pad">
+      <div class="glass content-card reveal">
+        <span class="section-no">03</span>
+        <span class="section-label">KISAH KAMI</span>
+        <h2>Two hearts, one journey.</h2>
+        <p class="lead">Dari sebuah pertemuan sederhana, tumbuh cerita yang membawa kami sampai pada hari istimewa ini.</p>
+        <div class="timeline">
+          <article><span>2019</span><h3>First Meeting</h3><p>Awal dari cerita yang tidak pernah kami sangka.</p></article>
+          <article><span>2023</span><h3>Engagement</h3><p>Satu keputusan untuk berjalan bersama.</p></article>
+          <article><span>2026</span><h3>The Wedding</h3><p>Bab baru yang ingin kami rayakan bersama orang-orang tercinta.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="event" class="content-section section-pad">
+  <div class="glass content-card reveal">
+
+    <span class="section-no">04</span>
+    <span class="section-label">ACARA</span>
+
+    <h2>Save The Date</h2>
+
+    <div class="event-grid">
+
+      <div class="event-box">
+        <span>AKAD NIKAH</span>
+
+        <strong id="akadTimeDisplay">
+          09:00 WIB
+        </strong>
+
+        <p id="akadDateDisplay">
+          11 September 2026
+        </p>
+
+        <p>
+          <span id="venueName">
+            Pendopo Mataram
+          </span>
+          <br>
+
+          <span id="cityName">
+            Yogyakarta
+          </span>
+        </p>
+      </div>
+
+
+      <div class="event-box">
+        <span>RESEPSI</span>
+
+        <strong id="receptionTimeDisplay">
+          19:00 WIB
+        </strong>
+
+        <p id="receptionDateDisplay">
+          11 September 2026
+        </p>
+
+        <p>
+          <span id="venueName2">
+            Pendopo Mataram
+          </span>
+          <br>
+
+          <span id="cityName2">
+            Yogyakarta
+          </span>
+        </p>
+      </div>
+
+    </div>
+
+
+    <!-- GOOGLE MAPS -->
+
+    <div class="map-card">
+
+      <div class="map-title">
+
+        <span class="section-label">
+          LOCATION
+        </span>
+
+        <h3 id="mapVenueName">
+          Pendopo Mataram
+        </h3>
+
+        <p id="mapCityName">
+          Yogyakarta
+        </p>
+
+      </div>
+
+
+      <div class="map-frame">
+
+        <iframe
+          id="weddingMap"
+          src="https://www.google.com/maps?q=Pendopo%20Mataram%20Yogyakarta&output=embed"
+          loading="lazy"
+          allowfullscreen
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+
+      </div>
+
+
+      <button
+        id="mapsBtn"
+        class="gold-btn map-button"
+        type="button">
+        📍 Buka Google Maps →
+      </button>
+
+    </div>
+
+  </div>
+</section>
+
+    <section id="gallery" class="content-section section-pad">
+  <div class="glass content-card reveal">
+
+    <span class="section-no">05</span>
+    <span class="section-label">GALERI</span>
+
+    <h2>Our Moments</h2>
+
+    <p class="gallery-intro">
+      Sepotong cerita yang ingin kami abadikan bersama.
+    </p>
+
+    <div class="gallery-grid">
+
+      <button
+        class="gallery-item gallery-photo tall"
+        type="button"
+        data-gallery="0"
+        aria-label="Buka foto 01"
+      >
+        <img src="assets/gallery-1.jpg" alt="Our moment 01">
+        <span class="gallery-number">01</span>
+        <span class="gallery-open">↗</span>
+      </button>
+
+      <button
+        class="gallery-item gallery-photo"
+        type="button"
+        data-gallery="1"
+        aria-label="Buka foto 02"
+      >
+        <img src="assets/gallery-2.jpg" alt="Our moment 02">
+        <span class="gallery-number">02</span>
+        <span class="gallery-open">↗</span>
+      </button>
+
+      <button
+        class="gallery-item gallery-photo"
+        type="button"
+        data-gallery="2"
+        aria-label="Buka foto 03"
+      >
+        <img src="assets/gallery-3.jpg" alt="Our moment 03">
+        <span class="gallery-number">03</span>
+        <span class="gallery-open">↗</span>
+      </button>
+
+      <button
+        class="gallery-item gallery-photo wide"
+        type="button"
+        data-gallery="3"
+        aria-label="Buka foto 04"
+      >
+        <img src="assets/gallery-4.jpg" alt="Our moment 04">
+        <span class="gallery-number">04</span>
+        <span class="gallery-open">↗</span>
+      </button>
+
+    </div>
+
+    <p class="hint gallery-hint">
+      Klik foto untuk melihat dalam ukuran penuh.
+    </p>
+
+  </div>
+</section>
+
+<!-- GALLERY LIGHTBOX -->
+<div id="galleryLightbox" class="gallery-lightbox" aria-hidden="true">
+
+  <button
+    class="gallery-close"
+    id="galleryClose"
+    type="button"
+    aria-label="Tutup galeri"
+  >
+    ×
+  </button>
+
+  <button
+    class="gallery-nav gallery-prev"
+    id="galleryPrev"
+    type="button"
+    aria-label="Foto sebelumnya"
+  >
+    ‹
+  </button>
+
+  <div class="gallery-lightbox-content">
+
+    <img
+      id="galleryLightboxImage"
+      src=""
+      alt="Foto undangan"
+    >
+
+    <div class="gallery-counter">
+      <span id="galleryCurrent">01</span>
+      <span>/</span>
+      <span id="galleryTotal">04</span>
+    </div>
+
+  </div>
+
+  <button
+    class="gallery-nav gallery-next"
+    id="galleryNext"
+    type="button"
+    aria-label="Foto berikutnya"
+  >
+    ›
+  </button>
+
+</div>
+
+    <section id="rsvp" class="content-section section-pad">
+      <div class="glass content-card reveal">
+        <span class="section-no">06</span>
+        <span class="section-label">RSVP</span>
+        <h2>Will you join us?</h2>
+        <form id="rsvpForm" class="rsvp-form">
+          <input
+  required
+  id="guestName"
+  type="text"
+  placeholder="Nama tamu"
+/>
+          <select required id="attendance">
+            <option value="">Konfirmasi kehadiran</option>
+            <option>Hadir</option>
+            <option>Tidak hadir</option>
+          </select>
+          <input id="guestCount" type="number" min="1" max="10" value="1" placeholder="Jumlah tamu" />
+          <textarea id="message" rows="4" placeholder="Ucapan untuk pengantin"></textarea>
+          <button class="gold-btn" type="submit">Kirim RSVP →</button>
+        </form>
+        <div id="rsvpMessage" class="form-message"></div>
+      </div>
+    </section>
+
+    <section id="gift" class="content-section section-pad">
+      <div class="glass content-card reveal">
+        <span class="section-no">07</span>
+        <span class="section-label">AMPL0P DIGITAL</span>
+        <h2>Tanda Kasih</h2>
+        <p class="lead">Doa dan kehadiran Anda adalah hadiah terindah. Jika berkenan, Anda dapat mengirim tanda kasih melalui rekening berikut.</p>
+        <div class="bank-card">
+          <span id="bankNameDisplay">BANK BCA</span>
+          <strong id="accountNumber">1234567890</strong>
+          <small id="bankHolderDisplay">Alya & Arkan</small>
+          <button class="copy-btn" onclick="copyAccount()">Salin Nomor Rekening</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing section-shell">
+      <div class="glass closing-card reveal">
+        <div class="javanese-flourish">꧁ ❦ ꧂</div>
+        <h2>See you on our special day.</h2>
+        <p>Terima kasih telah menjadi bagian dari cerita kami.</p>
+        <div class="ornament">✦</div>
+        <strong id="closingCouple">
+  Alya & Arkan
+</strong>
+      </div>
+    </section>
+  </main>
+
+  <audio id="weddingAudio" loop preload="none">
+    <source src="" type="audio/mpeg">
+  </audio>
+  <div id="toast" class="toast"></div>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wedding Admin — Alya & Arkan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="logo">❧ <span>Wedding Admin</span></div>
+    <a class="active" href="#dashboard">Dashboard</a>
+    <a href="#couple">Data Mempelai</a>
+    <a href="#event">Acara</a>
+    <a href="#gallery">Galeri</a>
+    <a href="#rsvp">RSVP</a>
+    <a href="#gift">Amplop Digital</a>
+    <a href="index.html" target="_blank">Preview Website ↗</a>
+  </aside>
+
+  <main class="dashboard">
+    <header class="dash-head">
+      <div><span>ADMIN PANEL</span><h1>Wedding Invitation</h1></div>
+      <button id="saveBtn">Simpan Perubahan</button>
+    </header>
+
+    <section class="panel privacy-note">
+      <h2>🔗 Sistem Link Tamu</h2>
+      <p class="muted">Nama tamu tidak dikelola di dashboard dan tidak disimpan sebagai master guest di Supabase. Nama dibaca langsung dari URL, misalnya <code>/andika-pratama</code>. Data baru dikirim ke database ketika tamu mengisi RSVP.</p>
+    </section>
+
+    <section id="dashboard" class="stats">
+      <div class="stat"><span>Total Tamu</span><strong id="statGuests">0</strong></div>
+      <div class="stat"><span>Hadir</span><strong id="statAttend">0</strong></div>
+      <div class="stat"><span>Tidak Hadir</span><strong id="statAbsent">0</strong></div>
+      <div class="stat"><span>Ucapan</span><strong id="statMessages">0</strong></div>
+    </section>
+
+    <section id="couple" class="panel">
+      <h2>Data Mempelai</h2>
+      <div class="form-grid">
+        <label>Nama Mempelai Wanita<input id="bride" value="Alya"></label>
+        <label>Nama Mempelai Pria<input id="groom" value="Arkan"></label>
+        <label>Tanggal<input id="weddingDate" type="date" value="2026-09-11"></label>
+        <label>Judul Kecil<input id="heroEyebrow" value="THE WEDDING OF"></label>
+      </div>
+    </section>
+
+    <section id="event" class="panel">
+      <h2>Acara</h2>
+      <div class="form-grid">
+        <label>Nama Venue<input id="venue" value="Pendopo Mataram"></label>
+        <label>Kota<input id="city" value="Yogyakarta"></label>
+        <label>Jam Akad<input id="akadTime" value="09:00 WIB"></label>
+        <label>Jam Resepsi<input id="receptionTime" value="19:00 WIB"></label>
+        <label>Google Maps URL<input id="mapsUrl" placeholder="Tempel link Google Maps"></label>
+      </div>
+    </section>
+
+    <section id="gallery" class="panel">
+
+  <h2>Galeri</h2>
+
+  <p class="muted">
+    Upload foto pernikahan yang akan ditampilkan di website.
+  </p>
+
+  <div class="gallery-upload-grid">
+
+    <!-- FOTO 01 -->
+    <div class="gallery-upload-card">
+
+      <div class="upload-preview" id="preview1">
+        <span>01</span>
+      </div>
+
+      <div class="upload-info">
+        <strong>Foto 01</strong>
+
+        <label class="upload-button">
+          📷 Pilih Foto
+          <input
+            type="file"
+            id="gallery1"
+            accept="image/*"
+            hidden
+          />
+        </label>
+
+        <button
+          type="button"
+          class="remove-photo"
+          data-photo="1">
+          Hapus
+        </button>
+      </div>
+
+    </div>
+
+
+    <!-- FOTO 02 -->
+    <div class="gallery-upload-card">
+
+      <div class="upload-preview" id="preview2">
+        <span>02</span>
+      </div>
+
+      <div class="upload-info">
+        <strong>Foto 02</strong>
+
+        <label class="upload-button">
+          📷 Pilih Foto
+          <input
+            type="file"
+            id="gallery2"
+            accept="image/*"
+            hidden
+          />
+        </label>
+
+        <button
+          type="button"
+          class="remove-photo"
+          data-photo="2">
+          Hapus
+        </button>
+      </div>
+
+    </div>
+
+
+    <!-- FOTO 03 -->
+    <div class="gallery-upload-card">
+
+      <div class="upload-preview" id="preview3">
+        <span>03</span>
+      </div>
+
+      <div class="upload-info">
+        <strong>Foto 03</strong>
+
+        <label class="upload-button">
+          📷 Pilih Foto
+          <input
+            type="file"
+            id="gallery3"
+            accept="image/*"
+            hidden
+          />
+        </label>
+
+        <button
+          type="button"
+          class="remove-photo"
+          data-photo="3">
+          Hapus
+        </button>
+      </div>
+
+    </div>
+
+
+    <!-- FOTO 04 -->
+    <div class="gallery-upload-card">
+
+      <div class="upload-preview" id="preview4">
+        <span>04</span>
+      </div>
+
+      <div class="upload-info">
+        <strong>Foto 04</strong>
+
+        <label class="upload-button">
+          📷 Pilih Foto
+          <input
+            type="file"
+            id="gallery4"
+            accept="image/*"
+            hidden
+          />
+        </label>
+
+        <button
+          type="button"
+          class="remove-photo"
+          data-photo="4">
+          Hapus
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+    <section id="rsvp" class="panel">
+      <div class="panel-title"><h2>RSVP Terbaru</h2><button id="clearRsvp" class="danger">Hapus Data Demo</button></div>
+      <div id="rsvpTable" class="table-wrap"></div>
+    </section>
+
+    <section id="gift" class="panel">
+      <h2>Amplop Digital</h2>
+      <div class="form-grid">
+        <label>Bank<input id="bankName" value="BANK BCA"></label>
+        <label>Nomor Rekening<input id="bankAccount" value="1234567890"></label>
+        <label>Atas Nama<input id="bankHolder" value="Alya & Arkan"></label>
+      </div>
+    </section>
+  </main>
+
+  <div id="adminToast" class="toast"></div>
+  <script src="admin.js"></script>
+</body>
+</html>
