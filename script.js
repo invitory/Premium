@@ -25,21 +25,20 @@ function slugToGuestName(slug) {
 }
 
 function getGuestNameFromUrl() {
-  const path = window.location.pathname.replace(/^\/+|\/+$/g, "");
-  const parts = path.split("/").filter(Boolean);
-
-  // Ignore common static files/folders.
-  const ignored = new Set([
-    "index.html", "admin.html", "assets", "css", "js", "favicon.ico"
-  ]);
-
-  if (parts.length && !ignored.has(parts[0].toLowerCase())) {
-    return slugToGuestName(parts[0]);
-  }
 
   const params = new URLSearchParams(window.location.search);
-  const raw = params.get("to") || params.get("guest") || params.get("nama") || "";
-  return raw.trim().replace(/\s+/g, " ").slice(0, 80);
+
+  const raw =
+    params.get("to") ||
+    params.get("guest") ||
+    params.get("nama") ||
+    "";
+
+  return raw
+    .trim()
+    .replace(/\+/g, " ")
+    .replace(/\s+/g, " ")
+    .slice(0, 80);
 }
 
 function escapeHtml(text) {
